@@ -1,0 +1,1 @@
+SET GOARCH=386
