@@ -4,6 +4,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"os"
 	"regexp"
 	"runtime"
@@ -125,6 +126,15 @@ func read_content(handle syscall.Handle) Content {
 	return read_content_file()
 }
 
+var lib_handle syscall.Handle
+
+func read(w http.ResponseWriter, req *http.Request) {
+	content := read_content(lib_handle)
+
+	json.NewEncoder(w).Encode(content)
+
+}
+
 func main() {
 	fmt.Printf("OS: %s\nArchitecture: %s\n", runtime.GOOS, runtime.GOARCH)
 	handle, err := syscall.LoadLibrary("Termb.dll")
@@ -133,19 +143,13 @@ func main() {
 		fmt.Println("Error loading DLL:", err)
 		return
 	}
+	lib_handle = handle
 
 	fmt.Println("DLL loaded successfully handle:", handle)
 	defer syscall.FreeLibrary(handle)
 
-	content := read_content(handle)
+	http.HandleFunc("/read", read)
 
-	b, err := json.Marshal(content)
-	if err != nil {
-		fmt.Printf("json.Marshal failed, err:%v\n", err)
-		return
-	}
-	fmt.Printf("str:%s\n", b)
-
-	fmt.Println("Read content success!")
+	http.ListenAndServe(":56541", nil)
 
 }
