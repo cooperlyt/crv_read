@@ -78,7 +78,7 @@ func read_content_file() Content {
 	f, err := os.ReadFile("zp.bmp")
 	if err != nil {
 		fmt.Println("Error reading file:", err)
-		return Content{6, "Error reading file!", Preson{}}
+		return Content{7, "Error reading photo file!", Preson{}}
 	}
 	base64Encoding := "data:image/bmp;base64," + base64.StdEncoding.EncodeToString(f)
 
