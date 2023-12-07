@@ -30,6 +30,7 @@ OutputBaseFilename=mysetup
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
+PrivilegesRequired=admin
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -39,13 +40,9 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "C:\Users\cooper\Documents\go\card-reading\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\cooper\Documents\go\card-reading\build.bat"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\cooper\Documents\go\card-reading\card-reading.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\cooper\Documents\go\card-reading\DLL_File.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\cooper\Documents\go\card-reading\go.mod"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\cooper\Documents\go\card-reading\go.sum"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\cooper\Documents\go\card-reading\license.dat"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\cooper\Documents\go\card-reading\main.go"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\cooper\Documents\go\card-reading\sdtapi.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\cooper\Documents\go\card-reading\Termb.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\cooper\Documents\go\card-reading\WltRS.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -64,5 +61,5 @@ Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall runascurrentuser skipifsilent
 

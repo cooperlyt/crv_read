@@ -129,6 +129,12 @@ func read_content(handle syscall.Handle) Content {
 var lib_handle syscall.Handle
 
 func read(w http.ResponseWriter, req *http.Request) {
+
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization")
+	w.Header().Set("Content-Type", "application/json")
+
 	content := read_content(lib_handle)
 
 	json.NewEncoder(w).Encode(content)
