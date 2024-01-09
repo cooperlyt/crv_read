@@ -55,6 +55,12 @@ Root: HKA; Subkey: "Software\Classes\{#MyAppAssocKey}\DefaultIcon"; ValueType: s
 Root: HKA; Subkey: "Software\Classes\{#MyAppAssocKey}\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""
 Root: HKA; Subkey: "Software\Classes\Applications\{#MyAppExeName}\SupportedTypes"; ValueType: string; ValueName: ".myp"; ValueData: ""
 Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "CardReader"; ValueData: "{app}\{#MyAppExeName}"
+Root: HKCR; Subkey: "cardreader"; ValueType: string; ValueName: ""; ValueData: "cardreaderProtocol"; Flags: uninsdeletekey
+Root: HKCR; SubKey: "cardreader"; ValueName: "URL Protocol"; ValueData: "{app}\{#MyAppExeName}"; ValueType: string; Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCR; Subkey: "cardreader\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Flags: uninsdeletekey
+Root: HKCR; SubKey: "cardreader\DefaultIcon"; ValueData: "{app}\{#MyAppExeName}"; ValueType: string; Flags: createvalueifdoesntexist uninsdeletekey;
+Root: HKCR; SubKey: "cardreader\shell\open\command"; ValueData: "{app}\{#MyAppExeName} ""%1"""; Flags: createvalueifdoesntexist uninsdeletekey; ValueType: string;
+
 
 [Icons]
 Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"

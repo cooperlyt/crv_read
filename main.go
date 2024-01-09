@@ -144,15 +144,6 @@ var lib_handle syscall.Handle
 
 func read(w http.ResponseWriter, req *http.Request) {
 
-	defer func() {
-		if r := recover(); r != nil {
-			// 发生未知错误时返回 HTTP 500 错误码
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-			// 记录错误日志
-			fmt.Println("Unknown error:", r)
-		}
-	}()
-
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS")
 	w.Header().Set("Access-Control-Allow-Headers", "DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization")
