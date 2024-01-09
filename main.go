@@ -90,6 +90,16 @@ func read_content_file() Content {
 }
 
 func read_content(handle syscall.Handle) Content {
+
+	var errOccurred bool
+
+	defer func() {
+		if r := recover(); r != nil {
+			errOccurred = true
+			fmt.Println("Error occurred:", r)
+		}
+	}()
+
 	if deveice_init != 1 {
 		deveice_init = init_deveice(handle)
 	}
@@ -121,6 +131,10 @@ func read_content(handle syscall.Handle) Content {
 	if r_read_content != 1 {
 		fmt.Println("Error: Read content failed!", err)
 		return Content{5, "Error: Read content failed!", Preson{}}
+	}
+
+	if errOccurred {
+		return Content{8, "Error occurred!", Preson{}}
 	}
 
 	return read_content_file()
