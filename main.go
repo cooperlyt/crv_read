@@ -9,6 +9,7 @@ import (
 	"regexp"
 	"runtime"
 	"strings"
+	"sync"
 	"syscall"
 
 	"github.com/axgle/mahonia"
@@ -32,6 +33,8 @@ type Content struct {
 	Message string `json:"message"`
 	Person  Preson `json:"person"`
 }
+
+var mu sync.Mutex
 
 var deveice_init = -1
 
@@ -148,6 +151,15 @@ func read(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS")
 	w.Header().Set("Access-Control-Allow-Headers", "DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization")
 	w.Header().Set("Content-Type", "application/json")
+
+	if req.Method == http.MethodOptions {
+		// 处理预检请求（OPTIONS 请求），返回成功状态
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
+	mu.Lock()
+	defer mu.Unlock()
 
 	content := read_content(lib_handle)
 
